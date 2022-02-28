@@ -25,7 +25,7 @@ export class SaucesService {
   }
 
   getSauceById(id: string) {
-    return this.http.get('http://localhost:3000/api/sauces/' + id).pipe(
+    return this.http.get<Sauce>('http://localhost:3000/api/sauces/' + id).pipe(
       catchError(error => throwError(error.error.message))
     );
   }
