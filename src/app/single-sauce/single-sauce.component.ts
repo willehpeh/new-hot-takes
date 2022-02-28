@@ -61,32 +61,14 @@ export class SingleSauceComponent implements OnInit {
     ).subscribe();
   }
 
-  // onLike() {
-  //   if (this.disliked) {
-  //     return 0;
-  //   }
-  //   this.likePending = true;
-  //   this.sauces.likeSauce(this.sauce._id, !this.liked).then(
-  //     (liked: boolean) => {
-  //       this.likePending = false;
-  //       this.liked = liked;
-  //       if (liked) {
-  //         this.sauce.likes++;
-  //       } else {
-  //         this.sauce.likes--;
-  //       }
-  //     }
-  //   );
-  // }
-
   onDislike() {
-    if (this.disliked) {
+    if (this.liked) {
       return;
     }
     this.likePending = true;
     this.sauce$.pipe(
       take(1),
-      switchMap((sauce: Sauce) => this.sauces.likeSauce(sauce._id, !this.disliked).pipe(
+      switchMap((sauce: Sauce) => this.sauces.dislikeSauce(sauce._id, !this.disliked).pipe(
         tap(disliked => {
           this.likePending = false;
           this.disliked = disliked;
@@ -96,24 +78,6 @@ export class SingleSauceComponent implements OnInit {
       )),
     ).subscribe();
   }
-
-  // onDislike() {
-  //   if (this.liked) {
-  //     return 0;
-  //   }
-  //   this.likePending = true;
-  //   this.sauces.dislikeSauce(this.sauce._id, !this.disliked).then(
-  //     (disliked: boolean) => {
-  //       this.likePending = false;
-  //       this.disliked = disliked;
-  //       if (disliked) {
-  //         this.sauce.dislikes++;
-  //       } else {
-  //         this.sauce.dislikes--;
-  //       }
-  //     }
-  //   );
-  // }
 
   onBack() {
     this.router.navigate(['/sauces']);
