@@ -68,7 +68,7 @@ export class SaucesService {
       const formData = new FormData();
       formData.append('sauce', JSON.stringify(sauce));
       formData.append('image', image);
-      return this.http.put('http://localhost:3000/api/sauces/' + id, formData).pipe(
+      return this.http.put<{ message: string }>('http://localhost:3000/api/sauces/' + id, formData).pipe(
         catchError(error => throwError(error.error.message))
       );
     }
